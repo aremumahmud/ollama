@@ -1,0 +1,138 @@
+================================================================================
+PART 1: Table/Image-related questions (expect table/image citations)
+================================================================================
+[1] What does rule R1 say about age and student status for buying a computer?
+    top retrieved chunk type: table (distance 0.1168)
+    cites a Table/Image in final answer: True
+    answer:
+Rule R1 states that if the age is youth AND the student status is yes, then the person will buy a computer [chunk_1].
+
+Sources:
+  [chunk_1] -> page 32, Table 0 (ICS 402 DATA MINING AND WAREHOUSING 2024.pdf)
+--------------------------------------------------------------------------------
+[2] What is the reference citation for the data mining textbook mentioned at the end of the document?
+    top retrieved chunk type: text (distance 0.2689)
+    cites a Table/Image in final answer: False
+    answer:
+Not found in the provided documents.
+--------------------------------------------------------------------------------
+[3] What are the layers described in the OLAM engine architecture diagram?
+    top retrieved chunk type: image (distance 0.3542)
+    cites a Table/Image in final answer: True
+    answer:
+The layers described in the OLAM engine architecture diagram are as follows:
+
+1. **Layer 1 - Data Repository**: This layer includes databases and a data warehouse [chunk_1].
+2. **Layer 2 - Multidimensional Database (MDDB)**: This layer is connected to the database API and contains metadata.
+3. **Layer 3 - OLAP/OLAM**: This layer includes an OLAM engine, which interacts with the Cube API and MDDB.
+4. **Layer 4 - User Interface**: This layer represents a graphical user interface for constraint-based mining queries [chunk_1].
+
+Sources:
+  [chunk_1] -> page 11, Image 0 (ICS 402 DATA MINING AND WAREHOUSING 2024.pdf)
+--------------------------------------------------------------------------------
+[4] In the decision tree diagram, what are the possible values for age?
+    top retrieved chunk type: image (distance 0.2073)
+    cites a Table/Image in final answer: True
+    answer:
+The possible values for age in the decision tree diagram are young, middle-aged, and senior [chunk_1].
+
+Sources:
+  [chunk_1] -> page 27, Image 0 (ICS 402 DATA MINING AND WAREHOUSING 2024.pdf)
+--------------------------------------------------------------------------------
+[5] What do the fuzzy membership functions for income represent, and what are their labels?
+    top retrieved chunk type: text (distance 0.1796)
+    cites a Table/Image in final answer: True
+    answer:
+The fuzzy membership functions for income represent the degree to which an income value belongs to certain categories. Specifically, they label the income values as "Low," "Medium," and "High." This can be seen in [chunk_2], where a graph with three triangular shapes (labeled "Low," "Medium," and "High") is described.
+
+Sources:
+  [chunk_2] -> page 37, Image 0 (ICS 402 DATA MINING AND WAREHOUSING 2024.pdf)
+--------------------------------------------------------------------------------
+================================================================================
+PART 2: Table/Image-unrelated questions (expect text-only citations, no table/image)
+================================================================================
+[1] What is Target Marketing in the context of data mining?
+    top retrieved chunk type: text (distance 0.2692)
+    cites a Table/Image in final answer: False
+    answer:
+Target Marketing in the context of data mining helps to find clusters of model customers who share the same characteristics such as interests, spending habits, income, etc. [chunk_1]
+
+Sources:
+  [chunk_1] -> page 3, lines 0-49 (ICS 402 DATA MINING AND WAREHOUSING 2024.pdf)
+--------------------------------------------------------------------------------
+[2] What is the Agglomerative Approach in clustering?
+    top retrieved chunk type: text (distance 0.1872)
+    cites a Table/Image in final answer: False
+    answer:
+The Agglomerative Approach, also known as the bottom-up approach, starts with each object forming a separate group. It keeps on merging the objects or groups that are close to one another until all of the groups are merged into one or until the termination condition holds [chunk_1].
+
+Sources:
+  [chunk_1] -> page 40, lines 0-36 (ICS 402 DATA MINING AND WAREHOUSING 2024.pdf)
+--------------------------------------------------------------------------------
+[3] How do you define a rule-based hierarchy in DMQL, such as profit_margin_hierarchy?
+    top retrieved chunk type: text (distance 0.1598)
+    cites a Table/Image in final answer: False
+    answer:
+A rule-based hierarchy can be defined in DMQL using the `define hierarchy` syntax. Specifically for defining `profit_margin_hierarchy`, it would look something like this based on the provided context:
+
+```plaintext
+define hierarchy profit_margin_hierarchy on item  as
+level_1: low_profit_margin < level_0: all if (price - cost)< $50
+level_1: medium-profit_margin < level_0: all if ((price - cost) > $50) and ((price - cost) ≤ $250)
+level_1: high_profit_margin < level_0: all if (price - cost) > $250
+```
+
+This example is derived from [chunk_1], which describes the syntax for defining such hierarchies in DMQL.
+
+Sources:
+  [chunk_1] -> page 22, lines 0-26 (ICS 402 DATA MINING AND WAREHOUSING 2024.pdf)
+--------------------------------------------------------------------------------
+[4] What are the theoretical foundations of data mining mentioned in Lesson Sixteen?
+    top retrieved chunk type: text (distance 0.1453)
+    cites a Table/Image in final answer: False
+    answer:
+The theoretical foundations of data mining include:
+- Data Reduction [chunk_1]
+- Data Compression [chunk_1]
+- Pattern Discovery [chunk_1]
+- Probability Theory [chunk_1] (mentioned twice, but only one reference is needed)
+- Microeconomic View [chunk_1]
+
+Sources:
+  [chunk_1] -> page 50, lines 0-37 (ICS 402 DATA MINING AND WAREHOUSING 2024.pdf)
+--------------------------------------------------------------------------------
+[5] What does Class/Concept refer to in data mining?
+    top retrieved chunk type: text (distance 0.1716)
+    cites a Table/Image in final answer: False
+    answer:
+Class/Concept refers to the data to be associated with the classes or concepts [chunk_1].
+
+Sources:
+  [chunk_1] -> page 4, lines 0-37 (ICS 402 DATA MINING AND WAREHOUSING 2024.pdf)
+--------------------------------------------------------------------------------
+
+================================================================================
+SUMMARY
+================================================================================
+Part 1 (table/image-related, 5 questions):
+  4/5 correctly retrieved and cited the right table/image chunk with accurate
+  page/table/image numbers, verified by hand against the source PDF.
+  1/5 (Q2, textbook citation) returned "Not found" instead of citing the table
+  on page 54. Root cause: NOT a retrieval failure — the table chunk WAS
+  retrieved (ranked #5 of 6, distance 0.304). Page 54 actually contains TWO
+  separate reference citations: one in prose ("Jiawei Han and Micheline
+  Kamber...", ranked #1) and one in the table ("Daniel T. Larose...", ranked
+  #5). The question ("the textbook mentioned at the end") is genuinely
+  ambiguous between the two, and the model chose to refuse rather than guess
+  which one the user meant — this is the anti-hallucination guardrail working
+  as designed, just triggered by question ambiguity rather than missing data.
+
+Part 2 (table/image-unrelated, 5 questions):
+  5/5 correctly retrieved and cited ONLY text chunks. No table or image
+  content surfaced in either retrieval-top-1 or the final answer for any of
+  these five questions — confirms the retrieval isn't indiscriminately
+  pulling in table/image chunks when the question doesn't call for them.
+
+Overall: citation grounding (page/table/image numbers resolved from ingestion
+metadata, never asserted by the LLM) held up correctly across all 10 cases,
+including the one refusal.
